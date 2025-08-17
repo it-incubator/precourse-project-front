@@ -50,9 +50,11 @@ export async function api<T>(
   return (text ? (typeof payload === "string" ? (payload as unknown as T) : (payload as T)) : (undefined as T));
 }
 
+type QueryParams = Record<string, string | number | boolean | undefined>;
+
 export const http = {
-  get: <T>(path: string, query?: Record<string, unknown>) => api<T>("GET", path, undefined, query),
-  post: <T>(path: string, body?: Record<string, unknown>, query?: Record<string, unknown>) => api<T>("POST", path, body, query),
-  put:  <T>(path: string, body?: Record<string, unknown>, query?: Record<string, unknown>) => api<T>("PUT",  path, body, query),
-  del:  <T>(path: string, query?: Record<string, unknown>) => api<T>("DELETE", path, undefined, query),
+  get: <T>(path: string, query?: QueryParams) => api<T>("GET", path, undefined, query),
+  post: <T>(path: string, body?: Record<string, unknown>, query?: QueryParams) => api<T>("POST", path, body, query),
+  put:  <T>(path: string, body?: Record<string, unknown>, query?: QueryParams) => api<T>("PUT",  path, body, query),
+  del:  <T>(path: string, query?: QueryParams) => api<T>("DELETE", path, undefined, query),
 };
